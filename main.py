@@ -92,6 +92,7 @@ def ai_move(board, model):
 # Play against the AI
 board = chess.Board()
 print(board)
+print("\nA","B","C","D","E","F","G","H")
 
 while not board.is_game_over():
     if board.turn == chess.WHITE:
@@ -99,9 +100,12 @@ while not board.is_game_over():
         if len(moves) > 0:
             move = input("Enter your move in UCI format (e.g., 'e2e4'): ")
             try:
-                if chess.Move.from_uci(move) in moves:
+                if (move == "moves"):
+                    print(list(board.legal_moves))
+                elif chess.Move.from_uci(move) in moves:
                     board.push(chess.Move.from_uci(move))
                     print(board)
+                    print("\nA","B","C","D","E","F","G","H")
                 else:
                     print(move, "is an invalid move!")
             except:
@@ -110,10 +114,12 @@ while not board.is_game_over():
             print("You have no legal moves. Game over. AI wins again.")
     else:
         best_move = ai_move(board, model)
-        if best_move:
+        moves = list(board.legal_moves)
+        if len(moves) > 0:
             board.push(best_move)
             print("AI's move:", best_move)
             print(board)
+            print("\nA","B","C","D","E","F","G","H")
         else:
             print("AI has no legal moves. Game over. For the first time ever. You win.")
             break
